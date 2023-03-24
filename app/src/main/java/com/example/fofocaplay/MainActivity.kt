@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
+import android.widget.TextView
 
 class MainActivity : AppCompatActivity() {
     private lateinit var btJogar: Button
@@ -24,7 +25,6 @@ class MainActivity : AppCompatActivity() {
         val intent = Intent(this, JogarActivity::class.java)
         startActivity(intent)
     }
-
 
     fun goToCadastrar() {
         val intent = Intent(this, CadastroActivity::class.java)
