@@ -12,7 +12,7 @@
         android:theme="@style/Theme.FofocaPlay"
         tools:targetApi="31">
         <activity
-            android:name=".JogarActivity"
+            android:name=".JogoActivity"
             android:exported="false" />
         <activity
             android:name=".CadastroActivity"

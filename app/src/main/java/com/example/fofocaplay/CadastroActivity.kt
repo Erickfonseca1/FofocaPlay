@@ -1,19 +1,17 @@
 package com.example.fofocaplay
 
-import android.annotation.SuppressLint
-import androidx.appcompat.app.AppCompatActivity
+import android.content.Intent
 import android.os.Bundle
+import android.os.PersistableBundle
 import android.widget.Button
 import android.widget.EditText
 import android.widget.RadioButton
-import android.widget.RadioGroup
+import androidx.appcompat.app.AppCompatActivity
 
-class CadastroActivity : AppCompatActivity() {
-    private lateinit var listaFofoca: ListaFofoca
+class CadastroActivity: AppCompatActivity() {
     private lateinit var etInputCadastro: EditText
-    private lateinit var rgButtons: RadioGroup
-    private lateinit var rbMentiraCadastro: RadioButton
     private lateinit var rbVerdadeCadastro: RadioButton
+    private lateinit var rbMentiraCadastro: RadioButton
     private lateinit var btSalvar: Button
     private lateinit var btCancelar: Button
 
@@ -22,35 +20,28 @@ class CadastroActivity : AppCompatActivity() {
         setContentView(R.layout.activity_cadastro)
 
         this.etInputCadastro = findViewById(R.id.etInputCadastro)
-        this.rgButtons = findViewById(R.id.rgButtons)
-        this.rbMentiraCadastro = findViewById(R.id.rbMentiraCadastro)
         this.rbVerdadeCadastro = findViewById(R.id.rbVerdadeCadastro)
-
-        this.atualizarTelaCadastro()
-
+        this.rbMentiraCadastro = findViewById(R.id.rbMentiraCadastro)
         this.btSalvar = findViewById(R.id.btSalvar)
-        this.btSalvar.setOnClickListener { this.addFofoca() }
-
         this.btCancelar = findViewById(R.id.btCancelar)
-        this.btCancelar.setOnClickListener { this.backToMain() }
 
-        this.listaFofoca = ListaFofoca()
+        this.btSalvar.setOnClickListener({ salvar() })
+        this.btCancelar.setOnClickListener({ cancelar() })
     }
 
-    private fun atualizarTelaCadastro() {
-        this.etInputCadastro.setText("")
-        this.rgButtons.clearCheck()
+    fun salvar() {
+        val descricao = this.etInputCadastro.text.toString()
+        val status = this.rbVerdadeCadastro.isChecked
+        val fofoca = Fofoca(descricao, status)
+        val intent = Intent().apply {
+            putExtra("FOFOCA", fofoca)
+        }
+
+        setResult(RESULT_OK, intent)
+        finish()
     }
 
-    private fun addFofoca() {
-        val status = this.rgButtons.checkedRadioButtonId == this.rbVerdadeCadastro.id
-        val fofoca = Fofoca(this.etInputCadastro.text.toString(), status)
-
-        this.listaFofoca.addFofoca(fofoca)
-        this.atualizarTelaCadastro()
-
-    }
-    private fun backToMain() {
+    fun cancelar() {
         finish()
     }
 }
